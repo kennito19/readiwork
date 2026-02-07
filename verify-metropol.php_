@@ -1,0 +1,116 @@
+<?php
+/**
+ * Metropol CRB API Handler for AJAX calls
+ * Place this file in your root directory
+ */
+require_once 'config.php';
+
+header('Content-Type: application/json');
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['success' => false, 'error' => 'Invalid request method']);
+    exit;
+}
+
+$identity_number = trim($_POST['national_id'] ?? '');
+$service = trim($_POST['service'] ?? 'crb');
+
+// Validation
+if (empty($identity_number)) {
+    echo json_encode(['success' => false, 'error' => 'ID number is required']);
+    exit;
+}
+
+if (!preg_match('/^\d{7,9}$/', $identity_number)) {
+    echo json_encode(['success' => false, 'error' => 'Invalid ID format. Use 7-9 digits only']);
+    exit;
+}
+
+try {
+    // Build API URL
+    $apiUrl = METROPOL_BASE_URL . ':' . METROPOL_PORT . '/' . METROPOL_VERSION . '/identity/verify';
+
+    // Generate timestamp (20+ digits with microseconds)
+    $dt = new DateTime('now', new DateTimeZone('UTC'));
+    $timestamp = $dt->format('YmdHis') . substr(microtime(false), 2, 6);
+
+    // Prepare request body
+    $postData = [
+        "report_type"     => 1,
+        "identity_number" => $identity_number,
+        "identity_type"   => "001"
+    ];
+
+    $jsonBody = json_encode($postData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
+    // Generate hash (using order 0 - adjust if needed)
+    $toHash = METROPOL_PRIVATE_KEY . $jsonBody . METROPOL_PUBLIC_KEY . $timestamp;
+    $apiHash = hash('sha256', $toHash);
+
+    // Initialize cURL
+    $ch = curl_init($apiUrl);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $jsonBody,
+        CURLOPT_HTTPHEADER     => [
+            "Content-Type: application/json",
+            "X-METROPOL-REST-API-KEY: " . METROPOL_PUBLIC_KEY,
+            "X-METROPOL-REST-API-HASH: $apiHash",
+            "X-METROPOL-REST-API-TIMESTAMP: $timestamp"
+        ],
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => false,
+        CURLOPT_TIMEOUT        => 60,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_VERBOSE        => false
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    // Parse response
+    $responseData = json_decode($response, true);
+
+    if ($httpCode === 200 && $responseData) {
+        // Success response
+        echo json_encode([
+            'success' => true,
+            'http_code' => $httpCode,
+            'data' => $responseData,
+            'service' => $service,
+            'identity_number' => $identity_number
+        ]);
+    } elseif ($httpCode === 401 || $httpCode === 400) {
+        // Authentication or validation error
+        echo json_encode([
+            'success' => false,
+            'error' => 'API authentication failed. Please contact support.',
+            'http_code' => $httpCode,
+            'details' => $responseData ?? ['message' => 'Invalid credentials or hash mismatch']
+        ]);
+    } else {
+        // Other errors
+        echo json_encode([
+            'success' => false,
+            'error' => $curlError ?: 'API request failed',
+            'http_code' => $httpCode,
+            'raw_response' => $response
+        ]);
+    }
+
+} catch (Exception $e) {
+    echo json_encode([
+        'success' => false,
+        'error' => 'Server error: ' . $e->getMessage()
+    ]);
+}
+?>

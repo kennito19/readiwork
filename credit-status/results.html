@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRB Status Result | Readiwork</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{
+  --green:#22c55e;
+  --green-soft:#86efac;
+  --green-bg:rgba(34,197,94,0.15);
+  --green-border:rgba(34,197,94,0.4);
+  --red:#ef4444;
+  --red-soft:#fca5a5;
+  --red-bg:rgba(239,68,68,0.15);
+  --red-border:rgba(239,68,68,0.4);
+  --yellow:#eab308;
+  --yellow-soft:#fde047;
+  --yellow-bg:rgba(234,179,8,0.15);
+  --yellow-border:rgba(234,179,8,0.4);
+  --bg:#050b1a;
+  --card:#0f172a;
+  --surface:#020617;
+  --text:#f8fafc;
+  --muted:#cbd5f5;
+  --border:rgba(255,255,255,.12);
+}
+body{
+  background:radial-gradient(70% 60% at top, #0b1220 0%, #050b1a 60%);
+  color:var(--text);
+  font-family:Inter,system-ui,sans-serif;
+  min-height:100vh;
+}
+.navbar{
+  background:rgba(5,11,26,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.navbar-brand{
+  font-weight:900;
+  font-size:1.6rem;
+  letter-spacing:1px;
+  color:var(--green) !important;
+}
+.page{
+  padding:140px 0 100px;
+}
+.card-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:48px;
+  box-shadow:0 40px 100px rgba(0,0,0,.7);
+  max-width:860px;
+  margin:0 auto;
+}
+.status-box{
+  padding:32px;
+  border-radius:24px;
+  display:flex;
+  gap:28px;
+  align-items:center;
+  margin-bottom:44px;
+  border:1px solid;
+}
+.status-good{background:var(--green-bg);border-color:var(--green-border);color:var(--green-soft);}
+.status-watch{background:var(--yellow-bg);border-color:var(--yellow-border);color:var(--yellow-soft);}
+.status-bad{background:var(--red-bg);border-color:var(--red-border);color:var(--red-soft);}
+.status-box i{font-size:48px;opacity:0.9;}
+.status-box h3{margin:0;font-weight:900;font-size:2rem;}
+.status-box p{margin:10px 0 0;font-size:1.1rem;opacity:0.9;}
+.section{margin-top:52px;}
+.section h5{
+  font-weight:800;
+  margin-bottom:26px;
+  color:#e5e7eb;
+  font-size:1.15rem;
+  letter-spacing:0.5px;
+  border-bottom:2px solid var(--green);
+  padding-bottom:8px;
+  display:inline-block;
+}
+.data-row{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 0;
+  border-bottom:1px dashed var(--border);
+  font-size:1rem;
+}
+.data-row:last-child{border-bottom:none;}
+.data-row span{color:var(--muted);}
+.data-row strong{color:#f8fafc;font-weight:600;}
+.badge-pill{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:9px 20px;
+  font-size:.9rem;
+  font-weight:600;
+}
+.footer-note{
+  margin-top:52px;
+  background:var(--surface);
+  border-left:5px solid var(--green);
+  padding:28px;
+  border-radius:20px;
+  font-size:.95rem;
+  color:#e5e7eb;
+  line-height:1.7;
+}
+.footer-note strong{color:#fff;}
+</style>
+</head>
+<body>
+
+<nav class="navbar fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">READIWORK</a>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <div class="card-box">
+
+          <!-- Dynamic Status Box -->
+          <div id="statusBox" class="status-box status-good">
+            <i class="fa-solid fa-circle-check"></i>
+            <div>
+              <h3 id="statusTitle">CRB Status: CLEAR</h3>
+              <p id="statusMessage">No current or historical delinquency found. Subject is in good standing with all licensed CRBs in Kenya.</p>
+            </div>
+          </div>
+
+          <!-- Basic KYC Information -->
+          <div class="section">
+            <h5>Basic KYC Information</h5>
+            <div class="data-row"><span>Full Name</span><strong id="fullName">—</strong></div>
+            <div class="data-row"><span>National ID Number</span><strong id="idNumber">—</strong></div>
+            <div class="data-row"><span>Date of Birth</span><strong id="dob">—</strong></div>
+            <div class="data-row"><span>Gender</span><strong id="gender">—</strong></div>
+            <div class="data-row"><span>Citizenship</span><strong id="citizenship">—</strong></div>
+            <div class="data-row"><span>KRA PIN</span><strong id="pin">—</strong></div>
+          </div>
+
+          <!-- Credit Standing -->
+          <div class="section">
+            <h5>Credit Standing (Metropol CRB)</h5>
+            <div class="data-row"><span>Delinquency Status</span><strong id="delinqSummary">—</strong></div>
+            <div class="data-row"><span>Current Delinquency</span><strong id="currentDelinq">—</strong></div>
+            <div class="data-row"><span>Historical Delinquency</span><strong id="historicalDelinq">—</strong></div>
+            <div class="data-row"><span>Delinquency Code</span><strong id="delinqCode">—</strong></div>
+            <div class="data-row"><span>Total Outstanding Amount (Defaults)</span><strong id="outstandingAmount">KES 0</strong></div>
+          </div>
+
+          <!-- Risk Assessment -->
+          <div class="section">
+            <h5>Risk Assessment</h5>
+            <div class="data-row"><span>Overall Risk Level</span><span id="riskBadge" class="badge-pill text-success">Low Risk</span></div>
+            <div class="data-row"><span>CRB Advisory</span><strong id="advisory">Eligible for credit consideration</strong></div>
+          </div>
+
+          <!-- Report Details -->
+          <div class="section">
+            <h5>Report Details</h5>
+            <div class="data-row"><span>Report Reference</span><strong id="refId">RW-CRB-20251230-XXXXXX</strong></div>
+            <div class="data-row"><span>Inquiry Date</span><strong>December 30, 2025</strong></div>
+          </div>
+
+          <!-- Footer Note -->
+          <div class="footer-note">
+            <strong>Important:</strong><br>
+            This report shows the subject's current and historical credit standing from Metropol Crystal CRB.<br>
+            "Total Outstanding Amount (Defaults)" indicates the total amount owed on any non-performing loans or negative listings.<br>
+            Readiwork facilitates access only — official records remain with the CRB.
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Updated to show "Total Outstanding Amount" instead of loan_amount
+// loan_amount in Metropol API is just the amount you sent in the request (for risk simulation)
+// It does NOT represent what the person owes. So we replace it with a meaningful "outstanding defaults" field.
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id')?.trim() || '880000088';
+
+document.getElementById('idNumber').textContent = id;
+
+// Default clean record
+let data = {
+  first_name: "John",
+  last_name: "Doe",
+  other_name: "Junior",
+  gender: "M",
+  dob: "1978-01-05",
+  citizenship: "Kenyan",
+  pin: "A123456789B",
+
+  delinquency_code: "001",
+  delinquency_summary: "Performing – No delinquency",
+  current_delinq: "False",
+  historical_delinq: "False",
+  outstanding_amount: "0"
+};
+
+let statusClass = 'status-good';
+let icon = 'fa-circle-check';
+let title = 'CRB Status: CLEAR';
+let message = 'No current or historical delinquency found. Subject is in good standing with all licensed CRBs in Kenya.';
+let riskLevel = 'Low Risk';
+let riskClass = 'text-success';
+let advisory = 'Eligible for credit consideration';
+
+// Simulate outcomes based on last 3 digits
+const lastThree = parseInt(id.slice(-3)) || 0;
+if (lastThree >= 700) {
+  // Blacklisted – has current defaults
+  data.delinquency_code = "005";
+  data.delinquency_summary = "Non-Performing Account (Current delinquency)";
+  data.current_delinq = "True";
+  data.historical_delinq = "True";
+  data.outstanding_amount = "248,500";
+
+  statusClass = 'status-bad';
+  icon = 'fa-circle-xmark';
+  title = 'CRB Status: BLACKLISTED';
+  message = 'Current negative listing detected. Subject has active non-performing loans.';
+  riskLevel = 'High Risk';
+  riskClass = 'text-danger';
+  advisory = 'Not recommended for new credit facilities';
+} else if (lastThree >= 400) {
+  // Watchlist – historical only, cleared now
+  data.delinquency_code = "003";
+  data.delinquency_summary = "Historical delinquency only";
+  data.current_delinq = "False";
+  data.historical_delinq = "True";
+  data.outstanding_amount = "0";
+
+  statusClass = 'status-watch';
+  icon = 'fa-triangle-exclamation';
+  title = 'CRB Status: WATCHLIST';
+  message = 'Past defaults recorded but currently cleared.';
+  riskLevel = 'Medium Risk';
+  riskClass = 'text-warning';
+  advisory = 'Credit possible with additional verification';
+}
+
+// Populate fields
+document.getElementById('fullName').textContent = 
+  `${data.first_name} ${data.other_name ? data.other_name + ' ' : ''}${data.last_name}`.trim();
+
+document.getElementById('dob').textContent = data.dob || '—';
+document.getElementById('gender').textContent = data.gender === 'M' ? 'Male' : data.gender === 'F' ? 'Female' : '—';
+document.getElementById('citizenship').textContent = data.citizenship || '—';
+document.getElementById('pin').textContent = data.pin || 'Not available';
+
+document.getElementById('delinqSummary').textContent = data.delinquency_summary;
+document.getElementById('currentDelinq').textContent = data.current_delinq;
+document.getElementById('historicalDelinq').textContent = data.historical_delinq;
+document.getElementById('delinqCode').textContent = data.delinquency_code + ' – ' + data.delinquency_summary.split(' – ')[0];
+
+document.getElementById('outstandingAmount').textContent = 'KES ' + parseInt(data.outstanding_amount).toLocaleString();
+
+// Random reference
+const randomRef = Math.random().toString(36).substring(2, 8).toUpperCase();
+document.getElementById('refId').textContent = `RW-CRB-20251230-${randomRef}`;
+
+// Status box update
+const statusBox = document.getElementById('statusBox');
+statusBox.className = `status-box ${statusClass}`;
+statusBox.querySelector('i').className = `fa-solid ${icon}`;
+document.getElementById('statusTitle').textContent = title;
+document.getElementById('statusMessage').textContent = message;
+document.getElementById('riskBadge').textContent = riskLevel;
+document.getElementById('riskBadge').className = `badge-pill ${riskClass}`;
+document.getElementById('advisory').textContent = advisory;
+</script>
+
+</body>
+</html>

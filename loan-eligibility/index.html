@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Loan Eligibility Check | Readiwork</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="AI-assisted loan eligibility check in Kenya. Estimate potential loan qualification without affecting your CRB score.">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --accent:#22c55e;
+  --bg:#050b1a;
+  --surface:#0b1220;
+  --card:#0f172a;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --border:rgba(255,255,255,.08);
+}
+
+body{
+  background:radial-gradient(70% 60% at top, #0b1220 0%, #050b1a 60%);
+  color:var(--text);
+  font-family:Inter,system-ui,sans-serif;
+  line-height:1.65;
+}
+
+/* NAV */
+.navbar{
+  background:rgba(5,11,26,.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.navbar-brand{
+  font-weight:900;
+  color:#fff;
+}
+.nav-link{
+  color:#cbd5f5!important;
+  font-weight:500;
+}
+.nav-link:hover{color:var(--accent)!important}
+.dropdown-menu{
+  background:#020617;
+  border:1px solid var(--border);
+}
+.dropdown-item{
+  color:#e5e7eb!important;
+}
+.dropdown-item:hover{
+  background:rgba(34,197,94,.15);
+  color:var(--accent)!important;
+}
+
+/* HEADER */
+.page-header{
+  padding:160px 0 70px;
+  text-align:center;
+}
+.page-header h1{
+  font-weight:900;
+  font-size:3.2rem;
+}
+.page-header span{color:var(--accent)}
+.page-header p{
+  max-width:760px;
+  margin:15px auto 0;
+  color:var(--muted);
+  font-size:1.1rem;
+}
+
+/* PANELS */
+.info-panel{
+  background:linear-gradient(180deg,#0f172a,#0b1220);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:40px;
+}
+.info-panel h4{font-weight:800}
+.info-panel li{margin-bottom:12px;color:var(--muted)}
+
+.form-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:40px;
+  box-shadow:0 30px 70px rgba(0,0,0,.45);
+}
+
+/* FORM */
+.form-group{position:relative}
+.form-group i{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+.form-control, .form-select{
+  background:#020617;
+  border:1px solid var(--border);
+  color:#fff;
+  padding:14px 14px 14px 44px;
+  border-radius:14px;
+}
+.form-control:focus,.form-select:focus{
+  border-color:var(--accent);
+  box-shadow:none;
+}
+label{font-weight:600}
+
+/* BUTTON */
+.btn-main{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  border:none;
+  border-radius:999px;
+  padding:14px;
+  font-weight:800;
+}
+.btn-main:hover{background:#16a34a}
+
+/* TRUST */
+.trust-strip{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  margin-top:24px;
+}
+.trust-strip i{color:var(--accent)}
+
+/* FOOTER */
+footer{
+  background:#020617;
+  border-top:1px solid var(--border);
+  padding:45px 0;
+  text-align:center;
+  color:#94a3b8;
+}
+footer a{color:#94a3b8;text-decoration:none}
+footer a:hover{color:var(--accent)}
+</style>
+</head>
+
+<body>
+
+<!-- ✅ UNIFORM MENU (DO NOT CHANGE) -->
+<nav class="navbar navbar-expand-lg fixed-top">
+<div class="container">
+<a class="navbar-brand" href="/">READIWORK</a>
+
+<button class="navbar-toggler text-white" data-bs-toggle="collapse" data-bs-target="#nav">
+<i class="fas fa-bars"></i>
+</button>
+
+<div class="collapse navbar-collapse" id="nav">
+<ul class="navbar-nav ms-auto align-items-lg-center gap-3">
+<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Verifications</a>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="/credit-status/index.html">CRB Status Check</a></li>
+<li><a class="dropdown-item active" href="/loan-eligibility/index.html">Loan Eligibility</a></li>
+<li><a class="dropdown-item" href="/credit-score/index.html">Credit Health Score</a></li>
+<li><a class="dropdown-item" href="/tenant-verification/index.html">Tenant Verification</a></li>
+<li><a class="dropdown-item" href="/job-verification/index.html">Job Applicant Check</a></li>
+<li><a class="dropdown-item" href="/background-check/index.html">Background & Safety Check</a></li>
+</ul>
+</li>
+
+<li class="nav-item"><a class="nav-link" href="/business/index.html">For Businesses</a></li>
+<li class="nav-item"><a class="nav-link" href="/developers/index.html">Developers</a></li>
+<li class="nav-item"><a class="nav-link" href="/support/index.html">Support</a></li>
+
+<li class="nav-item ms-lg-3">
+<a class="btn btn-success btn-sm px-4" href="#form">Start Check</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- HEADER -->
+<section class="page-header">
+<div class="container">
+<h1>Loan <span>Eligibility</span> Check</h1>
+<p>
+AI-assisted estimation of potential loan qualification based on
+income, obligations, and credit behaviour.  
+This check does <strong>not</strong> guarantee approval.
+</p>
+</div>
+</section>
+
+<!-- CONTENT -->
+<section class="pb-5">
+<div class="container">
+<div class="row g-5 justify-content-center">
+
+<!-- INFO -->
+<div class="col-lg-5">
+<div class="info-panel">
+<h4>What this check considers</h4>
+<ul class="list-unstyled mt-3">
+<li>✔ Income stability & range</li>
+<li>✔ Existing loan obligations</li>
+<li>✔ Credit behaviour patterns</li>
+<li>✔ Requested loan category</li>
+</ul>
+
+<p class="small text-muted mt-4">
+Results are estimates only. Final approval depends on lender policies
+and additional verification.
+</p>
+</div>
+</div>
+
+<!-- FORM -->
+<div class="col-lg-6" id="form">
+<div class="form-card">
+
+<form id="eligibilityForm">
+
+<div class="mb-3 form-group">
+<label>National ID or Phone Number</label>
+<i class="fa-solid fa-id-card"></i>
+<input class="form-control" placeholder="e.g. 12345678 or 07XXXXXXXX" required>
+</div>
+
+<div class="mb-3 form-group">
+<label>Loan Type</label>
+<i class="fa-solid fa-landmark"></i>
+<select class="form-select" required>
+<option value="">Select loan type</option>
+<option>Personal Loan</option>
+<option>Business Loan</option>
+<option>Emergency Loan</option>
+<option>Rental Loan</option>
+</select>
+</div>
+
+<div class="mb-3 form-group">
+<label>Monthly Income (KES)</label>
+<i class="fa-solid fa-money-bill-wave"></i>
+<select class="form-select" required>
+<option value="">Select income range</option>
+<option>Below 20,000</option>
+<option>20,000 – 50,000</option>
+<option>50,000 – 100,000</option>
+<option>Above 100,000</option>
+</select>
+</div>
+
+<div class="mb-4 form-group">
+<label>Existing Loan Obligations</label>
+<i class="fa-solid fa-scale-balanced"></i>
+<select class="form-select" required>
+<option value="">Select option</option>
+<option>No existing loans</option>
+<option>Below 50% of income</option>
+<option>Above 50% of income</option>
+</select>
+</div>
+
+<button class="btn btn-main w-100">
+Check Eligibility
+</button>
+
+</form>
+
+<div class="trust-strip text-center small mt-4">
+<div class="row">
+<div class="col-4"><i class="fa-solid fa-lock"></i><br>Secure</div>
+<div class="col-4"><i class="fa-solid fa-brain"></i><br>AI-Assisted</div>
+<div class="col-4"><i class="fa-solid fa-eye-slash"></i><br>No Score Impact</div>
+</div>
+
+<p class="text-muted small mt-3 mb-0">
+Verification fee may apply before detailed eligibility insights are shown.
+</p>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+<p class="fw-bold mb-1">READIWORK</p>
+<p class="mb-2">AI-Powered Credit & Risk Intelligence — Kenya</p>
+<p>
+<a href="/privacy.html">Privacy</a> ·
+<a href="/terms.html">Terms</a> ·
+<a href="/support/index.html">Support</a>
+</p>
+<p class="small mt-3">© 2025 Readiwork. All rights reserved.</p>
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

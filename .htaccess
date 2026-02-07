@@ -1,0 +1,25 @@
+RewriteEngine On
+
+# ✅ Homepage
+RewriteRule ^$ index.php [L]
+
+# ✅ Process Eligibility
+RewriteRule ^apply$ process_eligibility.php [L]
+
+# ✅ MPESA Payment Page
+RewriteRule ^mpesa$ mpesa_payment.php [L]
+
+# ✅ STK Push Handler
+RewriteRule ^stk$ stk_push.php [L]
+
+# ✅ Success Page
+RewriteRule ^success$ success.php [L]
+
+# ✅ Failed Page
+RewriteRule ^failed$ failed.php [L]
+
+# ✅ Loading Screen
+RewriteRule ^loading$ loading_screen.php [L]
+
+# ✅ CRB Result Page
+RewriteRule ^report$ crb_report.php [L]

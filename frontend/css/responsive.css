@@ -1,0 +1,200 @@
+/*large desktop*/
+
+@media (min-width: 1600px)
+{
+	.sign-up-form .container
+	{
+		max-width: 1700px;
+	}
+}
+
+
+/*md laptop*/
+@media only screen and (min-device-width: 1200px) and (max-device-width: 1366px)
+{
+	.wrapper
+	{
+ 		padding: 50px 0px 50px 20px;
+	}
+
+	.col-md-7.custom-width
+	{
+		width: 50%;
+	}
+	.col-md-5.custom-width
+	{
+		width: 50%;
+	}
+		.reg-button .sign-up
+	{
+		width: 200px;
+	}
+	.search
+	{
+		width: 90%;
+	}
+}
+
+/*laptop/tablet*/
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px)
+{
+	.col-md-7.custom-width
+	{
+		width: 50%;
+	}
+	.col-md-5.custom-width
+	{
+		width: 50%;
+	}
+
+
+	.wrapper
+	{
+		padding: 50px 0;
+	}
+
+	.about h1
+	{
+		font-size: 50px;
+	}
+	.about p
+	{
+		font-size: 16px;
+	}
+	.search
+	{
+		width: 100%;
+	}
+	.about span
+	{
+		font-size: 14px;
+	}
+	.reg-button
+	{
+		display: flex;
+	}
+	.reg-form .wrapper
+	{
+		padding: 50px 10px 50px 10px;
+	}
+	.reg-form .reg-button-social button
+	{
+		width: 16vw;
+	}
+	.reg-button .sign-up
+	{
+		width: 165px;
+	}
+
+}
+
+/*tablet*/
+@media only screen and (min-device-width: 576px) and (max-device-width: 768px)
+{
+	.about
+	{
+		width: 45%;
+		position: relative;
+		display: none;
+	}
+	.tab-100
+	{
+		width: 100% !important;
+	}
+	.reg-form h2
+	{
+		font-size: 30px;
+	}
+	.reg-button
+	{
+		display: block;
+	}
+		.reg-button .sign-up
+	{
+		width: 100%;
+	}
+	.reg-button span
+	{
+		float: none !important;
+		text-align: left;
+	}
+	.wrapper
+	{
+		padding: 50px 0px !important;
+	}
+		.reg-form .reg-button-social button
+	{
+		width: 200px;
+		margin-bottom: 10px;
+	}
+}
+
+/*smart phones*/
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px)
+{ 
+
+	.reg-form form span
+	{
+		font-size: 12px;
+	}
+	.about
+	{
+		display: none;
+	}
+	.wrapper
+	{
+		padding: 30px 10px 30px 10px;
+	}
+	.about
+	{
+		position: static;
+		width: 100%;
+		margin-top: 100px;
+	}
+	.about h1
+	{
+		font-size: 45px;
+	}
+	.about p
+	{
+		font-size: 16px;
+	}
+	.search
+	{
+		width: 100%;
+	}
+	.reg-form
+	{
+		margin-top: 50px;
+	}
+	.reg-form h2
+	{
+		font-size: 30px;
+	}
+
+	.reg-form .reg-button-social button
+	{
+		width: 200px;
+		margin-bottom: 10px;
+	}
+	.reg-form .wrapper
+	{
+		padding: 50px 0px 50px 0px;
+	}
+		.reg-button
+	{
+		display: block;
+	}
+	.reg-button .sign-up
+	{
+		width: 100%;
+	}
+	.reg-button span
+	{
+		float: none !important;
+		text-align: left;
+	}
+
+	
+}

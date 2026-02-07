@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120" fill="none">
+  <!-- R icon with shield + checkmark (compact) -->
+  <g transform="translate(0,5) scale(0.55)">
+    <!-- Shield -->
+    <path d="M100 10L185 50V110C185 155 148 185 100 195C52 185 15 155 15 110V50L100 10Z"
+          fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round" opacity="0.85"/>
+    <!-- R vertical -->
+    <path d="M55 55V150" stroke="currentColor" stroke-width="14" stroke-linecap="round"/>
+    <!-- R curve -->
+    <path d="M55 55H95C115 55 130 67 130 82C130 97 115 109 95 109H55"
+          stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- R leg + checkmark -->
+    <path d="M85 109L75 130L95 150L155 75"
+          stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- "eadiwork" text -->
+  <text x="118" y="82" font-family="Inter, system-ui, sans-serif" font-size="58" font-weight="600"
+        fill="currentColor" letter-spacing="-1">eadiwork</text>
+</svg>

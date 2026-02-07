@@ -1,0 +1,80 @@
+# Environment & Secrets
+config.php
+.env
+*.env
+
+# Logs
+*.log
+error_log
+callback_log.txt
+stk_log.txt
+failed_log.txt
+success_log.txt
+bot_errors.log
+twilio_raw.log
+twilio_received.log
+twilio_errors.log
+
+# Payment transaction files
+payments/
+
+# JSON data files
+attempts.json
+loan_memory.json
+
+# Old/backup files
+old*.php
+OLD*.php
+OLDIES*.php
+readiworkbakup.zip
+oddsadmin.zip
+*.zip
+nul
+Loan*/
+Loan Eligibility*/
+
+# Old CRB bot backup
+oldcrb-bot/
+
+# Libraries (install separately)
+tcpdf/
+vendor/
+
+# WhatsApp bot
+whatsapp-bot/
+
+# Livewire
+livewire/
+
+# Test files
+test_*.php
+test.txt
+test.php
+curl-test.php
+metropol-test.php
+newmetropol-test.php
+youverify-test.php
+check_error.php
+debug_*.php
+crb_dummy.php
+
+# Node modules
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config files with secrets
+oddsconfig.php
+twilio_log.txt
+oldcallback_log.txt
+
+# Claude
+.claude/

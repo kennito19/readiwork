@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Confirm Details | Readiwork</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Confirm your CRB status check details before secure payment.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#22c55e;
+  --green-dark:#16a34a;
+  --bg:#050b1a;
+  --card:#111a2f;
+  --text:#f1f5f9;
+  --muted:#94a3b8;        /* Lighter for better readability */
+  --border:rgba(255,255,255,.1);
+  --accent:rgba(34,197,94,.15);
+}
+
+body{
+  background:radial-gradient(70% 60% at top, #0b1220 0%, #050b1a 60%);
+  color:var(--text);
+  font-family:'Inter', system-ui, sans-serif;
+  min-height:100vh;
+}
+
+/* NAV */
+.navbar{
+  background:rgba(5,11,26,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:1rem 0;
+}
+.navbar-brand{
+  font-weight:900;
+  color:#fff;
+  font-size:1.4rem;
+  letter-spacing:-0.5px;
+}
+
+/* PAGE */
+.page{
+  padding:160px 0 120px;
+}
+
+.card-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:48px;
+  box-shadow:0 40px 100px rgba(0,0,0,.7);
+  backdrop-filter:blur(10px);
+}
+
+.step{
+  display:flex;
+  gap:16px;
+  margin-bottom:32px;
+  align-items:center;
+}
+.step span{
+  width:42px;
+  height:42px;
+  background:var(--green);
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:1.1rem;
+  flex-shrink:0;
+}
+.step h4{
+  margin:0;
+  font-weight:800;
+  font-size:1.5rem;
+}
+.step p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:0.95rem;
+}
+
+.summary{
+  background:rgba(15,23,42,.6);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px;
+  margin-bottom:32px;
+}
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:16px;
+  font-size:1.05rem;
+}
+.summary-row:last-child{
+  margin-bottom:0;
+}
+.summary-row span{
+  color:var(--muted);
+}
+.summary-row strong{
+  color:var(--text);
+  font-weight:600;
+}
+.summary hr{
+  border-color:var(--border);
+  margin:20px 0;
+}
+.total strong{
+  font-size:1.3rem;
+  font-weight:800;
+  color:var(--green);
+}
+
+.info-note{
+  background:var(--accent);
+  border:1px solid rgba(34,197,94,.3);
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:32px;
+  font-size:0.95rem;
+  color:var(--text);
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+.info-note i{
+  color:var(--green);
+  margin-top:2px;
+  flex-shrink:0;
+}
+
+.btn-main{
+  background:linear-gradient(135deg, var(--green), var(--green-dark));
+  border:none;
+  border-radius:999px;
+  padding:18px 32px;
+  font-weight:800;
+  font-size:1.1rem;
+  color:#fff;
+  width:100%;
+  transition:all .3s ease;
+  box-shadow:0 8px 25px rgba(34,197,94,.3);
+}
+.btn-main:hover{
+  background:var(--green-dark);
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(34,197,94,.4);
+}
+.btn-main:active{
+  transform:translateY(0);
+}
+
+.trust{
+  margin-top:24px;
+  font-size:0.9rem;
+  color:var(--muted);
+  display:flex;
+  justify-content:center;
+  gap:32px;
+  flex-wrap:wrap;
+}
+.trust span{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.trust i{
+  color:var(--green);
+  font-size:1.1rem;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">READIWORK</a>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<section class="page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-xl-6">
+        <div class="card-box">
+
+          <div class="step">
+            <span>2</span>
+            <div>
+              <h4>Confirm CRB Check</h4>
+              <p>Review details before secure payment</p>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="summary-row">
+              <span>Service</span>
+              <strong>CRB Status Check</strong>
+            </div>
+            <div class="summary-row">
+              <span>National ID</span>
+              <strong id="showId">—</strong>
+            </div>
+            <div class="summary-row">
+              <span>Report Type</span>
+              <strong>Blacklist / Listing Status</strong>
+            </div>
+            <div class="summary-row">
+              <span>Delivery</span>
+              <strong>Instant (after payment)</strong>
+            </div>
+            <hr>
+            <div class="summary-row total">
+              <span>Total Payable</span>
+              <strong>KES 249</strong>
+            </div>
+          </div>
+
+          <div class="info-note">
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+            <div>
+              This check is <strong>100% confidential</strong> and does not affect your credit score.<br>
+              Results are displayed <strong>immediately</strong> after successful payment.
+            </div>
+          </div>
+
+          <button id="payBtn" class="btn btn-main">
+            Proceed to Secure Payment
+          </button>
+
+          <div class="trust">
+            <span><i class="fa-solid fa-lock"></i> 256-bit Encrypted</span>
+            <span><i class="fa-solid fa-shield-halved"></i> Fully Private</span>
+            <span><i class="fa-solid fa-bolt"></i> Instant Results</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+const displayId = id ? id : 'Not provided';
+
+document.getElementById('showId').textContent = displayId;
+
+// Optional: disable button if no ID
+if (!id) {
+  document.getElementById('payBtn').disabled = true;
+  document.getElementById('payBtn').textContent = 'Missing National ID';
+}
+
+document.getElementById('payBtn').onclick = () => {
+  if (id) {
+    window.location.href = "payment.html?id=" + encodeURIComponent(id);
+  }
+};
+</script>
+
+</body>
+</html>

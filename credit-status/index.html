@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRB Status Check | Readiwork</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI-powered CRB status check in Kenya. Verify blacklist and credit standing securely.">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* =============== BASE (SAME AS HOME) =============== */
+:root{
+  --primary:#6366f1;
+  --primary-soft:#818cf8;
+  --accent:#22c55e;
+  --bg:#020617;
+  --surface:#0f172a;
+  --card:#111827;
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+  --border:#1f2937;
+}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+/* =============== NAV (UNCHANGED) =============== */
+.navbar{
+  background:rgba(2,6,23,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:1rem 0;
+}
+.navbar-brand{
+  font-weight:900;
+  font-size:1.8rem;
+  color:#fff !important;
+  letter-spacing:1px;
+}
+.nav-link{
+  color:#cbd5f5 !important;
+}
+.nav-link.active,
+.nav-link:hover{
+  color:var(--accent) !important;
+}
+.dropdown-menu{
+  background:var(--surface);
+  border:1px solid var(--border);
+}
+.dropdown-item{
+  color:#e5e7eb !important;
+}
+.dropdown-item:hover{
+  background:rgba(34,197,94,.15);
+  color:var(--accent) !important;
+}
+
+/* =============== PAGE HERO =============== */
+.page-hero{
+  padding:170px 0 120px;
+  text-align:center;
+}
+.page-hero h1{
+  font-size:3.4rem;
+  font-weight:900;
+  margin-bottom:20px;
+}
+.page-hero span{
+  color:var(--accent);
+}
+.page-hero p{
+  max-width:760px;
+  margin:0 auto;
+  font-size:1.15rem;
+  color:var(--muted);
+}
+
+/* =============== CONTENT =============== */
+.content{
+  padding:80px 0 120px;
+}
+.info-card,
+.form-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px;
+  height:100%;
+}
+
+/* INFO */
+.info-card h4{
+  font-weight:800;
+  margin-bottom:24px;
+}
+.info-list{
+  list-style:none;
+  padding:0;
+}
+.info-list li{
+  display:flex;
+  gap:12px;
+  margin-bottom:14px;
+  color:var(--muted);
+}
+.info-list i{
+  color:var(--accent);
+  margin-top:4px;
+}
+.info-badges{
+  display:flex;
+  gap:14px;
+  margin-top:28px;
+}
+.info-badge{
+  flex:1;
+  text-align:center;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  font-size:.85rem;
+  color:var(--muted);
+}
+.info-badge i{
+  display:block;
+  margin-bottom:6px;
+  color:var(--accent);
+}
+
+/* FORM */
+.form-label{
+  font-weight:600;
+}
+.form-group{
+  position:relative;
+}
+.form-group i{
+  position:absolute;
+  left:16px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+.form-control{
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:16px 16px 16px 48px;
+  border-radius:14px;
+}
+.form-control::placeholder{
+  color:#94a3b8;
+}
+.form-control:focus{
+  border-color:var(--accent);
+  box-shadow:none;
+}
+.form-note{
+  font-size:.9rem;
+  color:var(--muted);
+  margin:18px 0 26px;
+}
+.btn-main{
+  background:linear-gradient(135deg,var(--primary),var(--primary-soft));
+  border:none;
+  padding:16px;
+  font-weight:800;
+  border-radius:999px;
+}
+.form-footer{
+  display:flex;
+  justify-content:space-between;
+  margin-top:18px;
+  font-size:.9rem;
+  color:var(--muted);
+}
+.form-footer i{
+  color:var(--accent);
+}
+
+/* =============== FOOTER (UNCHANGED) =============== */
+footer{
+  background:var(--surface);
+  padding:60px 0;
+  text-align:center;
+  border-top:1px solid var(--border);
+}
+footer h5{
+  font-weight:900;
+  font-size:1.8rem;
+}
+footer p, footer small{
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR (SAME AS HOME) -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">READIWORK</a>
+    <button class="navbar-toggler text-white" data-bs-toggle="collapse" data-bs-target="#nav">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto gap-lg-4 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Verifications</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item active" href="#">CRB Status</a></li>
+            <li><a class="dropdown-item" href="/credit-score/">Credit Health</a></li>
+            <li><a class="dropdown-item" href="/background-check/">Background Check</a></li>
+            <li><a class="dropdown-item" href="/tenant-verification/">Tenant Check</a></li>
+            <li><a class="dropdown-item" href="/job-verification/">Job Verification</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/business/">Businesses</a></li>
+        <li class="nav-item"><a class="nav-link" href="/developers/">Developers</a></li>
+        <li class="nav-item ms-lg-3">
+          <a class="btn btn-primary px-4 py-2" href="#">Start Check</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <h1>CRB <span>Status</span> Check</h1>
+    <p>
+      Instantly confirm whether you are listed or blacklisted with any Credit Reference Bureau in Kenya.
+      This enquiry does <strong>not</strong> affect your credit score.
+    </p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="content">
+  <div class="container">
+    <div class="row g-5 align-items-stretch">
+
+      <!-- INFO -->
+      <div class="col-lg-5">
+        <div class="info-card">
+          <h4>What this check includes</h4>
+          <ul class="info-list">
+            <li><i class="fa-solid fa-check"></i> CRB listing or blacklist status</li>
+            <li><i class="fa-solid fa-check"></i> Active and cleared defaults</li>
+            <li><i class="fa-solid fa-check"></i> Delinquency history summary</li>
+            <li><i class="fa-solid fa-check"></i> Safe enquiry (no score impact)</li>
+          </ul>
+
+          <div class="info-badges">
+            <div class="info-badge"><i class="fa-solid fa-lock"></i>Secure</div>
+            <div class="info-badge"><i class="fa-solid fa-user-shield"></i>Private</div>
+            <div class="info-badge"><i class="fa-solid fa-bolt"></i>Instant</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="col-lg-6">
+        <div class="form-card">
+          <form id="crbForm">
+            <div class="mb-4 form-group">
+              <label class="form-label">National ID Number</label>
+              <i class="fa-solid fa-id-card"></i>
+              <input id="national_id" class="form-control" placeholder="e.g. 12345678" required>
+            </div>
+
+            <div class="form-note">
+              <i class="fa-solid fa-circle-info"></i>
+              Your ID is used strictly for verification purposes.
+            </div>
+
+            <button class="btn btn-main w-100">
+              Continue Secure Check
+            </button>
+
+            <div class="form-footer">
+              <span><i class="fa-solid fa-lock"></i> Encrypted</span>
+              <span><strong>KES 249</strong></span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (SAME AS HOME) -->
+<footer>
+  <div class="container">
+    <h5>READIWORK</h5>
+    <p>AI-Driven Verification Platform</p>
+    <small>© 2025 Readiwork. All rights reserved.</small>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('crbForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const id = document.getElementById('national_id').value.trim();
+  if(id.length < 6){
+    alert('Please enter a valid National ID number');
+    return;
+  }
+  window.location.href = "confirm.html?id=" + encodeURIComponent(id);
+});
+</script>
+
+</body>
+</html>

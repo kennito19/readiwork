@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Background / Dating Check Result | Readiwork</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{
+  --green:#22c55e;
+  --green-soft:#86efac;
+  --green-bg:rgba(34,197,94,0.15);
+  --green-border:rgba(34,197,94,0.4);
+  --red:#ef4444;
+  --red-soft:#fca5a5;
+  --red-bg:rgba(239,68,68,0.15);
+  --red-border:rgba(239,68,68,0.4);
+  --yellow:#eab308;
+  --yellow-soft:#fde047;
+  --yellow-bg:rgba(234,179,8,0.15);
+  --yellow-border:rgba(234,179,8,0.4);
+  --bg:#050b1a;
+  --card:#0f172a;
+  --surface:#020617;
+  --text:#f8fafc;
+  --muted:#cbd5f5;
+  --border:rgba(255,255,255,.12);
+}
+body{
+  background:radial-gradient(70% 60% at top, #0b1220 0%, #050b1a 60%);
+  color:var(--text);
+  font-family:Inter,system-ui,sans-serif;
+  min-height:100vh;
+}
+.navbar{
+  background:rgba(5,11,26,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.navbar-brand{
+  font-weight:900;
+  font-size:1.6rem;
+  letter-spacing:1px;
+  color:var(--green) !important;
+}
+.page{
+  padding:140px 0 100px;
+}
+.card-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:48px;
+  box-shadow:0 40px 100px rgba(0,0,0,.7);
+  max-width:900px;
+  margin:0 auto;
+}
+.status-box{
+  padding:32px;
+  border-radius:24px;
+  display:flex;
+  gap:28px;
+  align-items:center;
+  margin-bottom:44px;
+  border:1px solid;
+}
+.status-good{background:var(--green-bg);border-color:var(--green-border);color:var(--green-soft);}
+.status-watch{background:var(--yellow-bg);border-color:var(--yellow-border);color:var(--yellow-soft);}
+.status-bad{background:var(--red-bg);border-color:var(--red-border);color:var(--red-soft);}
+.status-box i{font-size:48px;opacity:0.9;}
+.status-box h3{margin:0;font-weight:900;font-size:2rem;}
+.status-box p{margin:10px 0 0;font-size:1.1rem;opacity:0.9;}
+.section{margin-top:52px;}
+.section h5{
+  font-weight:800;
+  margin-bottom:26px;
+  color:#e5e7eb;
+  font-size:1.15rem;
+  letter-spacing:0.5px;
+  border-bottom:2px solid var(--green);
+  padding-bottom:8px;
+  display:inline-block;
+}
+.data-row{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 0;
+  border-bottom:1px dashed var(--border);
+  font-size:1rem;
+}
+.data-row:last-child{border-bottom:none;}
+.data-row span{color:var(--muted);}
+.data-row strong{color:#f8fafc;font-weight:600;}
+.badge-pill{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:9px 20px;
+  font-size:.9rem;
+  font-weight:600;
+}
+.list-item{
+  padding:12px 0;
+  border-bottom:1px dashed var(--border);
+  color:var(--text);
+}
+.list-item:last-child{border-bottom:none;}
+.footer-note{
+  margin-top:52px;
+  background:var(--surface);
+  border-left:5px solid var(--green);
+  padding:28px;
+  border-radius:20px;
+  font-size:.95rem;
+  color:#e5e7eb;
+  line-height:1.7;
+}
+.footer-note strong{color:#fff;}
+</style>
+</head>
+<body>
+
+<nav class="navbar fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">READIWORK</a>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card-box">
+
+          <!-- Dynamic Status Box -->
+          <div id="statusBox" class="status-box status-good">
+            <i class="fa-solid fa-user-check"></i>
+            <div>
+              <h3 id="statusTitle">Background Check: SAFE TO PROCEED</h3>
+              <p id="statusMessage">No red flags detected in identity, credit, or background scrub. Subject appears genuine and low risk.</p>
+            </div>
+          </div>
+
+          <!-- Basic Identity (from Report Type 1) -->
+          <div class="section">
+            <h5>Identity Verification</h5>
+            <div class="data-row"><span>Full Name</span><strong id="fullName">—</strong></div>
+            <div class="data-row"><span>National ID Number</span><strong id="idNumber">—</strong></div>
+            <div class="data-row"><span>Date of Birth</span><strong id="dob">—</strong></div>
+            <div class="data-row"><span>Gender</span><strong id="gender">—</strong></div>
+            <div class="data-row"><span>Citizenship</span><strong id="citizenship">—</strong></div>
+            <div class="data-row"><span>KRA PIN</span><strong id="pin">—</strong></div>
+          </div>
+
+          <!-- Identity Scrub (Type 6 – from Full Report Type 14) -->
+          <div class="section">
+            <h5>Background Scrub (Aliases, Contacts & Addresses)</h5>
+            <div class="data-row"><span>Known Names / Aliases</span><strong id="knownNames">—</strong></div>
+            <div class="data-row"><span>Associated Phone Numbers</span><strong id="phones">—</strong></div>
+            <div class="data-row"><span>Associated Email Addresses</span><strong id="emails">—</strong></div>
+            <div class="data-row"><span>Physical Addresses</span><strong id="physicalAddr">—</strong></div>
+            <div class="data-row"><span>Postal Addresses</span><strong id="postalAddr">—</strong></div>
+            <div class="data-row"><span>Known Employment</span><strong id="employment">—</strong></div>
+          </div>
+
+          <!-- Credit Summary (from Full Report Type 14) -->
+          <div class="section">
+            <h5>Credit & Risk Indicators</h5>
+            <div class="data-row"><span>Credit Score</span><strong id="creditScore">—</strong></div>
+            <div class="data-row"><span>Delinquency Status</span><strong id="delinqSummary">—</strong></div>
+            <div class="data-row"><span>Active Negative Accounts</span><strong id="activeNpa">0</strong></div>
+            <div class="data-row"><span>Bounced Cheques (Last 12 Months)</span><strong id="bouncedCheques">0</strong></div>
+            <div class="data-row"><span>Fraud Indicators</span><strong id="hasFraud">None</strong></div>
+          </div>
+
+          <!-- Overall Risk -->
+          <div class="section">
+            <h5>Safety Assessment</h5>
+            <div class="data-row"><span>Overall Background Risk</span><span id="riskBadge" class="badge-pill text-success">Low Risk</span></div>
+            <div class="data-row"><span>Recommendation</span><strong id="recommendation">Safe to proceed</strong></div>
+          </div>
+
+          <!-- Report Details -->
+          <div class="section">
+            <h5>Report Details</h5>
+            <div class="data-row"><span>Report Reference</span><strong id="refId">RW-BG-20251230-XXXXXX</strong></div>
+            <div class="data-row"><span>Inquiry Date</span><strong>December 30, 2025</strong></div>
+          </div>
+
+          <!-- Footer Note -->
+          <div class="footer-note">
+            <strong>Important:</strong><br>
+            This Background / Dating Check combines Metropol CRB Identity Verification (Report Type 1) and Full JSON Report (Report Type 14) data including Identity Scrub.<br>
+            It verifies real identity, known aliases, contact details, addresses, employment, credit score, and negative indicators.<br>
+            Readiwork provides this for personal safety screening only. Use responsibly and ethically.
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Dummy simulation for Background / Dating Check using Report Type 1 + Type 14 (Full JSON)
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id')?.trim() || '880000088';
+
+document.getElementById('idNumber').textContent = id;
+
+// Default safe profile
+let data = {
+  // Identity Verification
+  first_name: "Peter",
+  other_name: "Marangi",
+  last_name: "Marangi",
+  surname: "Marangi",
+  gender: "M",
+  dob: "1973-05-05",
+  citizenship: "Kenyan",
+  pin: null,
+
+  // Identity Scrub (from Type 14)
+  names: ["Walker John", "John The Walker"],
+  phones: ["0722222222"],
+  emails: ["johnthe.walker@gmail.com"],
+  physical_address: ["Nakuru, Kenya"],
+  postal_address: ["P.O. Box 2222, Nakuru 00200, Kenya"],
+  employment: ["Testing Metropol"],
+
+  // Credit & Risk
+  credit_score: 467,
+  delinquency_code: "003",
+  delinquency_summary: "Historical delinquency only",
+  has_fraud: false,
+  bounced_cheques: 0
+};
+
+let statusClass = 'status-good';
+let icon = 'fa-user-check';
+let title = 'Background Check: SAFE TO PROCEED';
+let message = 'No red flags detected in identity, credit, or background scrub. Subject appears genuine and low risk.';
+let riskLevel = 'Low Risk';
+let riskClass = 'text-success';
+let recommendation = 'Safe to proceed';
+
+// Simulate risk scenarios
+const lastThree = parseInt(id.slice(-3)) || 0;
+if (lastThree >= 800) {
+  // High risk – fraud + bad credit
+  data.has_fraud = true;
+  data.credit_score = 312;
+  data.delinquency_summary = "Current non-performing accounts";
+  data.bounced_cheques = 3;
+
+  statusClass = 'status-bad';
+  icon = 'fa-user-xmark';
+  title = 'Background Check: HIGH RISK';
+  message = 'Multiple red flags: fraud indicators, negative credit, aliases, and bounced cheques detected.';
+  riskLevel = 'High Risk';
+  riskClass = 'text-danger';
+  recommendation = 'Do not proceed – significant safety concerns';
+} else if (lastThree >= 500) {
+  // Medium risk – aliases + historical issues
+  data.names.push("Suspicious Alias");
+  data.credit_score = 412;
+  data.delinquency_summary = "Historical delinquency";
+
+  statusClass = 'status-watch';
+  icon = 'fa-triangle-exclamation';
+  title = 'Background Check: PROCEED WITH CAUTION';
+  message = 'Some concerns: multiple aliases and past credit issues found.';
+  riskLevel = 'Medium Risk';
+  riskClass = 'text-warning';
+  recommendation = 'Verify in person and ask for additional proof';
+}
+
+// Populate page
+document.getElementById('fullName').textContent = `${data.first_name} ${data.other_name || ''} ${data.last_name}`.trim();
+document.getElementById('dob').textContent = data.dob || '—';
+document.getElementById('gender').textContent = data.gender === 'M' ? 'Male' : 'Female';
+document.getElementById('citizenship').textContent = data.citizenship || '—';
+document.getElementById('pin').textContent = data.pin || 'Not available';
+
+document.getElementById('knownNames').textContent = data.names.join(', ') || 'None found';
+document.getElementById('phones').textContent = data.phones.join(', ') || 'None found';
+document.getElementById('emails').textContent = data.emails.join(', ') || 'None found';
+document.getElementById('physicalAddr').textContent = data.physical_address.join(' | ') || 'None found';
+document.getElementById('postalAddr').textContent = data.postal_address.join(' | ') || 'None found';
+document.getElementById('employment').textContent = data.employment.join(', ') || 'None disclosed';
+
+document.getElementById('creditScore').textContent = data.credit_score || '—';
+document.getElementById('delinqSummary').textContent = data.delinquency_summary;
+document.getElementById('activeNpa').textContent = data.delinquency_summary.includes('Current') ? 'Yes' : 'No';
+document.getElementById('bouncedCheques').textContent = data.bounced_cheques;
+document.getElementById('hasFraud').textContent = data.has_fraud ? 'Detected' : 'None';
+
+// Random ref
+const randomRef = Math.random().toString(36).substring(2, 8).toUpperCase();
+document.getElementById('refId').textContent = `RW-BG-20251230-${randomRef}`;
+
+// Status update
+const statusBox = document.getElementById('statusBox');
+statusBox.className = `status-box ${statusClass}`;
+statusBox.querySelector('i').className = `fa-solid ${icon}`;
+document.getElementById('statusTitle').textContent = title;
+document.getElementById('statusMessage').textContent = message;
+document.getElementById('riskBadge').textContent = riskLevel;
+document.getElementById('riskBadge').className = `badge-pill ${riskClass}`;
+document.getElementById('recommendation').textContent = recommendation;
+</script>
+
+</body>
+</html>
