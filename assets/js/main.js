@@ -54,6 +54,14 @@
     initSmoothScroll();
     initTiltEffect();
     initServiceSearch();
+
+    // Safety: ensure all content is visible after 3 seconds
+    // even if IntersectionObserver hasn't triggered yet
+    setTimeout(function () {
+      $$('.rw-reveal-trigger').forEach(function (el) {
+        el.classList.add('visible');
+      });
+    }, 3000);
   });
 
   // ==========================================================

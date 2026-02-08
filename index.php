@@ -26,6 +26,14 @@ if ($base_path === '.') $base_path = '';
 
 <!-- Unified Theme CSS -->
 <link rel="stylesheet" href="<?= $base_path ?>/assets/css/theme.css">
+
+<!-- Fallback: show all sections even if JS fails -->
+<noscript>
+<style>
+  .rw-reveal, .rw-reveal-left, .rw-reveal-right, .rw-reveal-scale,
+  .rw-stagger > * { opacity: 1 !important; transform: none !important; }
+</style>
+</noscript>
 </head>
 <body>
 
