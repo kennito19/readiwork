@@ -7,7 +7,7 @@ function get_service_price($key) {
 
 // Dynamic base path
 $base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-if ($base_path === '' || $base_path === '.') $base_path = '/readiwork';
+if ($base_path === '.' || $base_path === '\\') $base_path = '';
 ?>
 
 <!doctype html>

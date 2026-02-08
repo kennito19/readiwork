@@ -1,37 +1,36 @@
 FROM php:8.2-apache
 
-# Enable Apache modules
+# Enable Apache rewrite module
 RUN a2enmod rewrite
 
-# Install PHP extensions needed
-RUN apt-get update && apt-get install -y libcurl4-openssl-dev \
-    && docker-php-ext-install pdo pdo_mysql curl \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install system dependencies and PHP extensions
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libcurl4-openssl-dev \
+    && docker-php-ext-install pdo pdo_mysql \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Allow .htaccess overrides in document root
+RUN printf '<Directory /var/www/html>\n    AllowOverride All\n    Require all granted\n</Directory>\n' \
+    > /etc/apache2/conf-available/custom.conf \
+    && a2enconf custom
 
 # Copy project files
 COPY . /var/www/html/
 
-# Set working directory
 WORKDIR /var/www/html
 
-# Use Render config as config.php (reads secrets from env vars)
+# Use Render config (env-var based) as the active config.php
 RUN cp config.render.php config.php
 
-# Make entrypoint executable
-RUN chmod +x docker-entrypoint.sh
-
-# Set proper permissions
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Apache configuration for .htaccess
-RUN echo '<Directory /var/www/html>\n\
-    AllowOverride All\n\
-    Require all granted\n\
-</Directory>' > /etc/apache2/conf-available/custom.conf \
-    && a2enconf custom
+# Render provides PORT env var at runtime; Apache must listen on it.
+# Use sed at container start via the entrypoint script.
+RUN chmod +x /var/www/html/docker-entrypoint.sh
 
 EXPOSE 10000
 
-# Use entrypoint that sets PORT dynamically from Render env var
-CMD ["./docker-entrypoint.sh"]
+ENTRYPOINT ["/var/www/html/docker-entrypoint.sh"]
