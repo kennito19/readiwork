@@ -17,6 +17,9 @@ WORKDIR /var/www/html
 # Use Render config as config.php (reads secrets from env vars)
 RUN cp config.render.php config.php
 
+# Make entrypoint executable
+RUN chmod +x docker-entrypoint.sh
+
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
@@ -28,7 +31,7 @@ RUN echo '<Directory /var/www/html>\n\
 </Directory>' > /etc/apache2/conf-available/custom.conf \
     && a2enconf custom
 
-# Expose port
-EXPOSE 80
+EXPOSE 10000
 
-CMD ["apache2-foreground"]
+# Use entrypoint that sets PORT dynamically from Render env var
+CMD ["./docker-entrypoint.sh"]
