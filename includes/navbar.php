@@ -1,7 +1,7 @@
 <?php
 // Determine base path dynamically
 $base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-if ($base_path === '' || $base_path === '.') $base_path = '/readiwork';
+if ($base_path === '.') $base_path = '';
 $current_uri = $_SERVER['REQUEST_URI'] ?? '';
 ?>
 <div class="rw-navbar" id="rwNavbar">

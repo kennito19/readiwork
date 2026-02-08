@@ -528,7 +528,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['national_id'])) {
 ?>
 <?php
 $base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-if ($base_path === '' || $base_path === '.') $base_path = '/readiwork';
+if ($base_path === '.') $base_path = '';
 ?>
 <!doctype html>
 <html lang="en">

@@ -6,7 +6,7 @@
  */
 if (!isset($base_path)) {
     $base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-    if ($base_path === '' || $base_path === '.') $base_path = '/readiwork';
+    if ($base_path === '.') $base_path = '';
 }
 $page_title = $page_title ?? 'Readiwork AI';
 $page_description = $page_description ?? "Africa's AI-powered verification platform";
